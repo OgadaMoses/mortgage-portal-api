@@ -20,18 +20,18 @@ public class AuthService {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.passwordEncoder = passwordEncoder;
-     }
+    }
 
     public LoginResponse login(LoginRequest request) {
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("Invalid username or password"));
+        User user = userRepository.findByUsername(request.getUsername()) .orElseThrow(() -> new RuntimeException("Invalid username or password"));
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword()))
+        {
             throw new RuntimeException("Invalid username or password");
         }
 
         String token = jwtTokenProvider.generateToken(user.getUsername(), user.getRoleid());
-  
+
         return new LoginResponse(token, user.getRoleid());
     }
 }
