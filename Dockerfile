@@ -1,14 +1,12 @@
-# Step 1: Base Image
-FROM openjdk:17-jdk-slim
-
-# Step 2: Set working directory
+# Stage 1: Build the Spring Boot app
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Step 3: Copy the jar from target folder
-COPY target/portal-api-0.0.1-SNAPSHOT.jar app.jar
-
-# Step 4: Expose the port your Spring Boot app runs on
+# Stage 2: Run the app
+FROM eclipse-temurin:17
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Step 5: Run the jar
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
