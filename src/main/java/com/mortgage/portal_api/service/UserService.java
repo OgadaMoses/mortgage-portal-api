@@ -16,10 +16,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserIdGenerator userIdGenerator;
 
-    public UserService(UserRepository userRepository,
-                       RoleRepository roleRepository,
-                       PasswordEncoder passwordEncoder,
-                       UserIdGenerator userIdGenerator) {
+    public UserService(UserRepository userRepository,RoleRepository roleRepository,PasswordEncoder passwordEncoder,UserIdGenerator userIdGenerator) 
+    {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -39,7 +37,6 @@ public class UserService {
             throw new RuntimeException("Email already registered: " + request.getEmail());
         }
 
-        // ✅ Auto-generate userIdentificationNumber
         String generatedUserId = userIdGenerator.generateUserId(request.getRoleId());
 
         if (userRepository.existsByUseridentificationnumber(generatedUserId)) {

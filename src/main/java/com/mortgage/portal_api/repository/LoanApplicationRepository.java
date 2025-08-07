@@ -14,5 +14,4 @@ public interface LoanApplicationRepository extends JpaRepository<LoanApplication
     boolean existsByLoanappid(String loanappid);
     List<LoanApplication> findByUsernameAndUseridentificationnumber(String username, String useridentificationnumber);
     List<LoanApplication> findByLoanstatus(String loanstatus);
-
 }

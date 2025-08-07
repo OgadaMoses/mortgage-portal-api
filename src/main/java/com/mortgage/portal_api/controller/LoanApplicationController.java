@@ -78,7 +78,6 @@ public class LoanApplicationController {
 	                  
 	                    String eventMsg = "Loan Application [" + loanAppId + "] updated to status [" + status.toUpperCase() + "]";
 	                  //  eventPublisher.publishLoanUpdateEvent(eventMsg);
-	
 	                    return ResponseEntity.ok("Loan application status updated successfully.");
 	                })
 	                .orElse(ResponseEntity.notFound().build());
