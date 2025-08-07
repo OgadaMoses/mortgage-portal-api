@@ -35,7 +35,7 @@ public class SecurityConfig {
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**","/swagger-ui/**","/v3/api-docs/**","/api/loans","/api/users/register",
-                		"/api/users/all","/api/loans/my-applications","/api/loans/status*").permitAll()
+                		"/api/users/all","/api/loans/my-applications","/api/loans/status*", "/api/loans/*/decision").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
