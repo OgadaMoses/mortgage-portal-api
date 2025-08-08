@@ -27,10 +27,10 @@ A Spring Boot–based RESTful API for managing mortgage applications. It include
 
 ---
 
-### Local Development
+## How to Build & Run
 
+### **Locally (without Docker)**
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/OgadaMoses/mortgage-portal-api.git
    cd mortgage-portal-api
