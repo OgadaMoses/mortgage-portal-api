@@ -1,21 +1,13 @@
 version: '3.8'
-services:
-  postgres:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: MortgageApplicationPortalDb
-      POSTGRES_USER: mogada
-      POSTGRES_PASSWORD: Mogada@5899
-    ports:
-      - "5432:5432"
 
+services:
   kafka:
     image: bitnami/kafka:latest
     environment:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
       - ALLOW_PLAINTEXT_LISTENER=yes
     ports:
       - "9092:9092"
@@ -32,12 +24,11 @@ services:
   backend:
     build: .
     depends_on:
-      - postgres
       - kafka
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/MortgageApplicationPortalDb
-      SPRING_DATASOURCE_USERNAME: mogada
-      SPRING_DATASOURCE_PASSWORD: Mogada@5899
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ep-delicate-sea-ab3c5q7u-pooler.eu-west-2.aws.neon.tech/MortgageApplicationPortalDb?sslmode=require
+      SPRING_DATASOURCE_USERNAME: neondb_owner
+      SPRING_DATASOURCE_PASSWORD: npg_Kd9caAMj1ikr
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     ports:
       - "8080:8080"
